@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Music Player'),
+      home: MyHomePage(title: 'Music Player',),
     );
   }
 }
@@ -55,16 +55,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Color(0xffABB7B7),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text(widget.title,style: TextStyle(color: Colors.white30,fontWeight: FontWeight.w700),),
+        backgroundColor: Colors.indigoAccent,
+        elevation: 5.0,
+        title: Text(widget.title,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700),),
         actions: <Widget>[
           FlatButton(
-            child: Icon(Icons.search,color: Colors.black45,),
+            child: Icon(Icons.search,color: Colors.white,),
             onPressed: (){},
             
             
@@ -73,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       bottomNavigationBar: BottomAppBar(
-         color: Color(0x8fffffff),
+         color: Color(0xffffffff),
+         elevation: 5.0,
         child:Container(
           height: 50.0,
           color: Colors.transparent,
@@ -95,8 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
          Row(
            children: <Widget>[
              
-            Container(padding: EdgeInsets.only(left: 10.0,right: 10.0,top: 30.0,bottom: 30.0),child:Card(child: Container(
-               width:MediaQuery.of(context).size.width*3.6/4,
+            Container(padding: EdgeInsets.only(left: 35.0,right: 35.0,top: 30.0,bottom: 30.0),child:Card(child: Container(
+               width:MediaQuery.of(context).size.width*3/4,
               height: MediaQuery.of(context).size.height*1.5/4,
               child:Image.asset("asset/vada.jpg",fit: BoxFit.fill,)),elevation: 4.0,)),
 
@@ -143,13 +144,13 @@ class _MyHomePageState extends State<MyHomePage> {
           child:   Column(children: <Widget>[
             Stack(children: <Widget>[
                       Divider(color: Colors.black12),
-                      Divider(color: Color(0xff2ECC71),endIndent: MediaQuery.of(context).size.width/100*80,),
+                      Divider(color:Colors.indigoAccent,endIndent: MediaQuery.of(context).size.width/100*80,),
             ],),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Icon(Icons.skip_previous,color: Colors.black54,),
-              Icon(Icons.play_arrow,color: Color(0xff2ECC71),size: 50.0,),
+              Icon(Icons.play_arrow,color:Colors.indigoAccent,size: 50.0,),
               Icon(Icons.skip_next,color: Colors.black54,),
             ],
           ),
