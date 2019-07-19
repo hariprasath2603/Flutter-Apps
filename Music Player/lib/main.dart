@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './listSongs.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -7,6 +7,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+      initialRoute: '/',
+      routes: {
+        '/songList':(context) =>SongList()
+      },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -38,8 +43,7 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
-
+  final String title;  
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -72,43 +76,65 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
 
-      bottomNavigationBar: BottomAppBar(
-         color: Color(0xffffffff),
-         elevation: 5.0,
-        child:Container(
-          height: 50.0,
-          color: Colors.transparent,
-          padding: EdgeInsets.only(left: 20.0,right: 20.0),
-          child:Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-         Icon(Icons.home,size:20.0,color: Colors.indigoAccent,),
-         Icon(Icons.search,size:20.0,color: Colors.black45,),
-         Icon(Icons.video_call,size:20.0,color: Colors.black45,),
-         Icon(Icons.library_music,size:20.0,color: Colors.black45,),
-        ],))
+      bottomNavigationBar: BottomNavigationBar(
+
+        onTap: (index){
+          
+          if(index==1){
+            print(index);
+              Navigator.pushNamed(context, '/songList');
+          }
+        },
+         items:  <BottomNavigationBarItem>[
+            
+         
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home,size:20.0,color: Colors.indigoAccent,),
+          title: Text('Home',style: TextStyle(color: Colors.indigoAccent,),),
+        ),  
+        BottomNavigationBarItem(
+          icon:Icon(Icons.search,size:20.0,color: Colors.black45,),
+          title: Text('Home',style: TextStyle(color: Colors.black45,),),
+        ),
+        BottomNavigationBarItem(
+          icon:Icon(Icons.video_call,size:20.0,color: Colors.black45,),
+          title: Text('School',style: TextStyle(color: Colors.indigoAccent,),),
+        ),
+        BottomNavigationBarItem(
+          icon:Icon(Icons.library_music,size:20.0,color: Colors.black45,),
+          title: Text('School',style: TextStyle(color: Colors.indigoAccent,),),
+        ),
+      ],
       ),
+
+      // bottomNavigationBar: BottomAppBar(
+      //    color: Color(0xffffffff),
+      //    elevation: 5.0,
+         
+      //   child:Container(
+      //     height: 50.0,
+      //     color: Colors.transparent,
+          
+      //     padding: EdgeInsets.only(left: 25.0,right: 20.0),
+      //     child:Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: <Widget>[
+      //    Icon(Icons.home,size:20.0,color: Colors.indigoAccent,),
+      //    Icon(Icons.search,size:20.0,color: Colors.black45,),
+      //    Icon(Icons.video_call,size:20.0,color: Colors.black45,),
+      //    Icon(Icons.library_music,size:20.0,color: Colors.black45,),
+        
+      //   ],))
+      // ),
       body: Column(children: <Widget>[
         Center(
-         child:SingleChildScrollView(
-           scrollDirection: Axis.horizontal,
-          child: 
-         Row(
-           children: <Widget>[
              
-            Container(padding: EdgeInsets.only(left: 35.0,right: 35.0,top: 30.0,bottom: 30.0),child:Card(child: Container(
+           child: Container(padding: EdgeInsets.only(left: 35.0,right: 35.0,top: 30.0,bottom: 30.0),child:Card(child: Container(
                width:MediaQuery.of(context).size.width*3/4,
               height: MediaQuery.of(context).size.height*1.5/4,
               child:Image.asset("asset/vada.jpg",fit: BoxFit.fill,)),elevation: 4.0,)),
 
-            Container(padding: EdgeInsets.only(left: 10.0,right: 10.0,top: 30.0,bottom: 30.0),child:Card(child: Container(
-              width:MediaQuery.of(context).size.width*3.6/4,
-              height: MediaQuery.of(context).size.height*1.5/4,
-              color: Color(0xff1BBC9B),child:Text("hello")),elevation: 4.0,)),
-            //Container(padding: EdgeInsets.only(left: 10.0,right: 10.0,top: 30.0,bottom: 30.0),child:Card(child: Container(color: Colors.lightGreenAccent),elevation: 4.0,)),
-           ],
-         )
-        ,)
+          
         
         ),
       Container(
@@ -146,14 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Divider(color: Colors.black12),
                       Divider(color:Colors.indigoAccent,endIndent: MediaQuery.of(context).size.width/100*80,),
             ],),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Icon(Icons.skip_previous,color: Colors.black54,),
-              Icon(Icons.play_arrow,color:Colors.indigoAccent,size: 50.0,),
-              Icon(Icons.skip_next,color: Colors.black54,),
-            ],
-          ),
+         InteractiveButtons(),
           ]
           ),
         )],)
@@ -161,5 +180,38 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       );
 
+  }
+}
+
+
+class InteractiveButtons extends StatefulWidget {
+  var  buttonToggel=Icons.play_arrow;
+  @override
+  _InteractiveButtonsState createState() => _InteractiveButtonsState();
+}
+
+class _InteractiveButtonsState extends State<InteractiveButtons> {
+  @override
+  Widget build(BuildContext context) {
+    
+    return Container(
+     child:  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Icon(Icons.skip_previous,color: Colors.black54,),
+              GestureDetector (child:Icon(widget.buttonToggel,color:Colors.indigoAccent,size: 50.0,),
+              onTap: (){
+                print("tapped");
+                  if(widget.buttonToggel==Icons.play_arrow)
+                  setState(() {widget.buttonToggel=Icons.pause;});
+                  else
+                  setState(() {
+                  widget.buttonToggel=Icons.play_arrow;
+                  });
+              },),
+              Icon(Icons.skip_next,color: Colors.black54,),
+            ],
+          ),
+    );
   }
 }
